@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Interactivo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+      background:
+        radial-gradient(circle at top left, #f7f7f7 0, transparent 34%),
+        linear-gradient(135deg, #ffffff 0%, #eeeeee 45%, #d8d8d8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    main {
+      width: min(720px, 100%);
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid #d4d4d4;
+      border-radius: 8px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+      padding: 34px;
+      backdrop-filter: blur(12px);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
+      padding: 0 12px;
+      border: 1px solid #222;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #222;
+      background: #fff;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: clamp(32px, 6vw, 58px);
+      line-height: 1;
+      color: #050505;
+    }
+
+    p {
+      margin-top: 16px;
+      max-width: 560px;
+      color: #4a4a4a;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    button {
+      min-height: 48px;
+      border: 1px solid #111;
+      border-radius: 8px;
+      background: #111;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    button:nth-child(2) {
+      background: #fff;
+      color: #111;
+    }
+
+    button:nth-child(3) {
+      background: #555;
+      border-color: #555;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      background: #2c2c2c;
+      color: #fff;
+    }
+
+    #mensaje {
+      min-height: 74px;
+      margin-top: 26px;
+      padding: 18px;
+      border-left: 5px solid #111;
+      border-radius: 8px;
+      background: #f4f4f4;
+      color: #222;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    #mensaje.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 620px) {
+      main {
+        padding: 24px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="tag">Interfaz básica</span>
+    <h1>Hola Soy Ronny, este es mi panel</h1>
+    <p>
+      Aqui describiria un poco de mi, pero eso se los comento en persona mejor.
+    </p>
+
+    <section class="actions" aria-label="Acciones interactivas">
+      <button type="button" onclick="mostrarMensaje('Bienvenido. Este botón acaba de despertar la página.')">
+        Saludar
+      </button>
+      <button type="button" onclick="mostrarMensaje('Todo está funcionando correctamente.')">
+        Probar
+      </button>
+      <button type="button" onclick="mostrarMensaje('Mensaje cambiado con éxito. Quedó elegante y simple.')">
+        Cambiar mensaje
+      </button>
+    </section>
+
+    <div id="mensaje" role="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    function mostrarMensaje(texto) {
+      const mensaje = document.getElementById("mensaje");
+      mensaje.textContent = texto;
+      mensaje.classList.remove("visible");
+
+      setTimeout(() => {
+        mensaje.classList.add("visible");
+      }, 30);
+    }
+  </script>
+</body>
+</html>
